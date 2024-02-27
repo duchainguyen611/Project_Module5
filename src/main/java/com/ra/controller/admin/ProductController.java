@@ -52,9 +52,9 @@ public class ProductController {
     }
 
     @PostMapping(value = "/insertProduct")
-    public String save(@ModelAttribute("product") Product product, @RequestParam("file") MultipartFile file) {
+    public String save(@ModelAttribute("product") Product product) {
 //        storageService.store(file);
-        product.setImage(String.valueOf(file));
+//        product.setImage(String.valueOf(file));
         product.setCreatedAt(new Date(new java.util.Date().getTime()));
         product.setSku(UUID.randomUUID().toString());
         boolean check = productService.add(product);

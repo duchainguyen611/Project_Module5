@@ -47,10 +47,5 @@ public class Product {
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<ShoppingCart> shoppingCarts;
-
-    @OneToMany(mappedBy = "product")
-    @JsonIgnore
-    private List<OrderDetail> orderDetails;
-
 }
 
