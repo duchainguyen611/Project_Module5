@@ -25,7 +25,8 @@
                 <li class="dropdown user-menu">
                     <button class="dropdown-toggle nav-link ec-drop" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                        <img src="/admin/img/user/user-1.png" class="user-image" alt="User Image"/>
+                        <img th:if="${#authentication.principal.user.image}"
+                             th:src="${'/uploads/'+#authentication.principal.user.image}" class="user-image"  alt="User Image"/>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right ec-dropdown-menu">
                         <!-- User image -->
@@ -36,7 +37,7 @@
                             </div>
                         </li>
                         <li>
-                            <a href="user-profile.html">
+                            <a href="/admin/profile">
                                 <i class="mdi mdi-account"></i> My Profile
                             </a>
                         </li>
@@ -207,3 +208,18 @@
         </div>
     </nav>
 </header>
+<script>
+    // function updateUserImage() {
+    //     // Gọi endpoint để lấy đường dẫn hình ảnh mới
+    //     fetch("/admin/profile")
+    //         .then(response => response.text())
+    //         .then(newImageUrl => {
+    //             // Cập nhật đường dẫn hình ảnh trong thẻ <img>
+    //             document.querySelector('.user-image').src = newImageUrl;
+    //         })
+    //         .catch(error => console.error('Error fetching user image:', error));
+    // }
+    //
+    // // Example: Gọi hàm này khi hình ảnh của người dùng thay đổi
+    // updateUserImage();
+</script>

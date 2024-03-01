@@ -22,13 +22,13 @@ public class UserServiceImp implements UserService {
     private RoleService roleService;
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -44,9 +44,10 @@ public class UserServiceImp implements UserService {
                 .username(user.getUsername())
                 .password(passwordEncoder.encode(user.getPassword()))
                 .email(user.getEmail())
-                .avatar(user.getAvatar())
+                .image(user.getImage())
                 .phone(user.getPhone())
                 .status(true)
+                .sex(user.getSex())
                 .createdAt(new Date(new java.util.Date().getTime()))
                 .address(user.getAddress()).
                 roles(roles).
@@ -61,12 +62,14 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void changeStatus(Long id) {
-        Optional<User> optionalUsers = findById(id);
-        if (optionalUsers.isPresent()){
-            User user = optionalUsers.get();
-            user.setStatus(!user.getStatus());
-            userRepository.save(user);
-        }
+        User user = findById(id);
+        user.setStatus(!user.getStatus());
+        userRepository.save(user);
+    }
+
+    @Override
+    public User update(User user) {
+        return userRepository.save(user);
     }
 
 

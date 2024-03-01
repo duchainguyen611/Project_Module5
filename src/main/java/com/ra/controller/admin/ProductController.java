@@ -6,8 +6,8 @@ import com.ra.model.entity.Vendor;
 import com.ra.model.service.CategoryService;
 import com.ra.model.service.ProductService;
 import com.ra.model.service.VendorService;
-import com.ra.uploadFile.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -30,12 +30,12 @@ public class ProductController {
     private CategoryService categoryService;
     @Autowired
     private VendorService vendorService;
-    @Autowired
-    private StorageService storageService;
+    @Value("${path-upload}")
+    private String pathUpload;
 
     @GetMapping("/product")
     public String index(Model model) {
-        List<Product> products = productService.getAll();
+        List<Product> products = productService.findAll();
         model.addAttribute("products", products);
         return "admin/product/mainProduct";
     }
@@ -52,16 +52,19 @@ public class ProductController {
     }
 
     @PostMapping(value = "/insertProduct")
-    public String save(@ModelAttribute("product") Product product) {
-//        storageService.store(file);
-//        product.setImage(String.valueOf(file));
+    public String save(@ModelAttribute("product") Product product, @RequestParam("imageProduct") MultipartFile file) {
+        String fileName = file.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(file.getBytes(), new File(pathUpload + fileName));
+            product.setImage(fileName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         product.setCreatedAt(new Date(new java.util.Date().getTime()));
         product.setSku(UUID.randomUUID().toString());
-        boolean check = productService.add(product);
-        if (check) {
-            return "redirect:/admin/product";
-        }
-        return "admin/product/mainProduct";
+        productService.save(product);
+        return "redirect:/admin/product";
+
     }
 
     @GetMapping(value = "/updateProduct/{id}")
@@ -75,14 +78,18 @@ public class ProductController {
         return "admin/product/updateProduct";
     }
 
-    @PostMapping(value = "/updateProduct")
-    public String edit(@ModelAttribute("product") Product product) {
-        product.setUpdateAt(new Date(new java.util.Date().getTime()));
-        boolean check = productService.update(product);
-        if (check) {
-            return "redirect:/admin/product";
+    @PostMapping(value = "/editProduct")
+    public String edit(@ModelAttribute("product") Product product, @RequestParam("imageProduct") MultipartFile file) {
+        String fileName = file.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(file.getBytes(), new File(pathUpload + fileName));
+            product.setImage(fileName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return "admin/product/mainProduct";
+        product.setUpdateAt(new Date(new java.util.Date().getTime()));
+        productService.save(product);
+        return "redirect:/admin/product";
     }
 
     @GetMapping("/productDetail/{id}")
@@ -98,9 +105,7 @@ public class ProductController {
 
     @GetMapping("/deleteProduct/{id}")
     public String delete(@PathVariable Long id) {
-        if (productService.delete(id)) {
-            return "redirect:/admin/product";
-        }
-        return "admin/product/mainProduct";
+        productService.delete(id);
+        return "redirect:/admin/product";
     }
 }

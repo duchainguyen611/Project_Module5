@@ -55,11 +55,11 @@
 					<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
 						<div>
 							<h1>All products</h1>
-							<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
-								<span><i class="mdi mdi-chevron-right"></i></span>Product</p>
+							<p class="breadcrumbs"><span><a href="/admin">Home</a></span>
+								<span><i class="mdi mdi-chevron-right"></i></span>List Product</p>
 						</div>
 						<div>
-							<a href="product-add.html" class="btn btn-primary"> Add Porduct</a>
+							<a href="/admin/addProduct" class="btn btn-primary"> Add Porduct</a>
 						</div>
 					</div>
 					<div class="row">
@@ -83,7 +83,7 @@
 											<tbody>
 												<tr th:each="product:${products}">
 													<td th:text="${product.id}"></td>
-													<td th:text="${product.image}"></td>
+													<td ><img width="150" th:src="@{|/uploads/${product.image}|}"></td>
 													<td th:text="${product.productName}"></td>
 													<td th:text="${product.category.categoryName}"></td>
 													<td th:text="${product.unitPrice}"></td>

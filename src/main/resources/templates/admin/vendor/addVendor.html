@@ -49,7 +49,7 @@
 					<div class="breadcrumb-wrapper breadcrumb-contacts">
 						<div>
 							<h1>Vendor add</h1>
-							<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
+							<p class="breadcrumbs"><span><a href="/admin">Home</a></span>
 								<span><i class="mdi mdi-chevron-right"></i></span> Add Vendor
 							</p>
 						</div>
@@ -68,7 +68,7 @@
                                             <h3>Vendor Add</h3>
                                         </div>
                                     <div class="tab-pane-content mt-5">
-                                        <form method="post" th:action="@{/admin/insertVendor}" th:object="${vendor}">
+                                        <form method="post" th:action="@{/admin/insertVendor}" th:object="${vendor}" enctype="multipart/form-data">
                                             <div class="row mb-2">
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
@@ -95,12 +95,20 @@
                                                         <input type="text" class="form-control" id="lastName" th:field="*{address}">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form_customer_profilr_img">
-                                                        <h6 class="mb-3">Vendor profile image:</h6>
-                                                        <img src="/admin/img/user/profile.png" alt="img">
-                                                    </div>
-                                                </div>
+												<div class="ec-vendor-img-upload">
+													<div class="ec-vendor-main-img">
+														<div class="avatar-upload">
+															<div class="col-md-3 mb-3">
+																<img th:src="${vendor.image}" width="100%" id="previewImage">
+															</div>
+															<div class="col-md-9 mb-3">
+																<label class="form-label">Image</label>
+																<input type="file" class="form-control" th:name="imageVendor" onchange="handleInputImage()">
+																<input type="hidden" class="form-control" th:field="*{image}" id="imageChoose">
+															</div>
+														</div>
+													</div>
+												</div>
                                                 <div class="col-lg-12">
                                                     <div class="d-flex justify-content-end mt-5">
                                                         <button type="submit"
@@ -146,6 +154,7 @@
 
 	<!-- custom js -->
 	<script src="/admin/js/custom.js"></script>
+	<script th:replace="admin/fragments/inputFIle :: inputFileFragment"></script>
 
 </body>
 

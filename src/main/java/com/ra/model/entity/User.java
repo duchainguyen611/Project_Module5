@@ -24,8 +24,7 @@ public class User {
     private String fullName;
     private Boolean status;
     private String password;
-    private String sex;
-    private String avatar;
+    private Boolean sex;
     private String phone;
     private String address;
     private Date createdAt;

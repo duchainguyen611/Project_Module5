@@ -51,8 +51,8 @@
 					<div class="breadcrumb-wrapper breadcrumb-contacts">
 						<div>
 							<h1>Customer list</h1>
-							<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
-								<span><i class="mdi mdi-chevron-right"></i></span>Customer
+							<p class="breadcrumbs"><span><a href="/admin/">Home</a></span>
+								<span><i class="mdi mdi-chevron-right"></i></span>List User
 							</p>
 						</div>
 					</div>
@@ -71,8 +71,8 @@
 													<th>Phone</th>
 													<th>Sex</th>
 													<th>Address</th>
+													<th>UserName</th>
 													<th>Status</th>
-													<th>Joined</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -80,15 +80,13 @@
 											<tbody>
 												<tr th:each="user:${users}">
 													<td th:text="${user.id}"> </td>
-													<td th:text="${user.image}">
-<!--														<img class="cat-thumb" src="/admin/img/user/u1.jpg"-->
-<!--															alt="Product Image" />-->
-													</td>
+													<td th:text="${user.image}"></td>
 													<td th:text="${user.fullName}"></td>
 													<td th:text="${user.email}"></td>
 													<td th:text="${user.phone}"></td>
 													<td th:text="${user.sex}"></td>
 													<td th:text="${user.address}"></td>
+													<td th:text="${user.username}"></td>
 													<td><span class="badge badge-success" th:text="${user.status?'Active':'Inactive'}"></span></td>
 													<td></td>
 													<td>

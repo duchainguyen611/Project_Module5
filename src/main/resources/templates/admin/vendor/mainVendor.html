@@ -52,8 +52,11 @@
 					<div class="breadcrumb-wrapper breadcrumb-contacts">
 						<div>
 							<h1>Vendor List</h1>
-							<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
+							<p class="breadcrumbs"><span><a href="/admin">Home</a></span>
 								<span><i class="mdi mdi-chevron-right"></i></span>Vendor</p>
+						</div>
+						<div>
+							<a href="/admin/addVendor" class="btn btn-primary">Add Vendor</a>
 						</div>
 					</div>
 					<div class="row">
@@ -77,7 +80,7 @@
 											<tbody>
 												<tr th:each="vendor:${vendors}">
 													<td th:text="*{vendor.id}"> </td>
-													<td th:text="*{vendor.image}"></td>
+													<td><img width="150" th:src="@{|/uploads/${vendor.image}|}"></td>
 													<td th:text="*{vendor.vendorName}"></td>
 													<td th:text="*{vendor.email}"></td>
 													<td th:text="*{vendor.phone}"></td>

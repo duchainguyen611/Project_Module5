@@ -54,8 +54,8 @@
 					<div class="breadcrumb-wrapper d-flex align-items-center justify-content-between" >
 						<div>
 							<h1>Product Detail</h1>
-							<p class="breadcrumbs"><span><a href="index.html">Home</a></span>
-								<span><i class="mdi mdi-chevron-right"></i></span>Product
+							<p class="breadcrumbs"><span><a href="/admin">Home</a></span>
+								<span><i class="mdi mdi-chevron-right"></i></span>Product Detail
 							</p>
 						</div>
 						<div>
@@ -69,7 +69,6 @@
 								<div class="card-header card-header-border-bottom">
 									<h2>Product Detail</h2>
 								</div>
-
 								<div class="card-body product-detail" >
 									<div class="row">
 										<div class="col-xl-4 col-lg-6">
@@ -79,37 +78,7 @@
 														<div class="single-product-cover">
 															<div class="single-slide zoom-image-hover">
 																<img class="img-responsive"
-																	src="/admin/img/products/details-big.png" alt="">
-															</div>
-															<div class="single-slide zoom-image-hover">
-																<img class="img-responsive"
-																	src="/admin/img/products/details-big.png" alt="">
-															</div>
-															<div class="single-slide zoom-image-hover">
-																<img class="img-responsive"
-																	src="/admin/img/products/details-big.png" alt="">
-															</div>
-															<div class="single-slide zoom-image-hover">
-																<img class="img-responsive"
-																	src="/admin/img/products/details-big.png" alt="">
-															</div>
-														</div>
-														<div class="single-nav-thumb">
-															<div class="single-slide">
-																<img class="img-responsive"
-																	src="/admin/img/products/details-sm-1.png" alt="">
-															</div>
-															<div class="single-slide">
-																<img class="img-responsive"
-																	src="/admin/img/products/details-sm-2.png" alt="">
-															</div>
-															<div class="single-slide">
-																<img class="img-responsive"
-																	src="/admin/img/products/details-sm-3.png" alt="">
-															</div>
-															<div class="single-slide">
-																<img class="img-responsive"
-																	src="/admin/img/products/details-sm-4.png" alt="">
+																	 th:src="@{|/uploads/${product.image}|}" alt="">
 															</div>
 														</div>
 													</div>

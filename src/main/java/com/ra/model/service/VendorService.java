@@ -6,9 +6,7 @@ import java.util.List;
 
 public interface VendorService {
     List<Vendor> getAll();
-    Boolean add(Vendor vendor);
-    Boolean update(Vendor vendor);
-
-    Boolean delete(Long Id);
+    Vendor save(Vendor vendor);
+    void delete(Long Id);
     Vendor findById(Long Id);
 }

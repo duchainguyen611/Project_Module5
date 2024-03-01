@@ -16,9 +16,9 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/category")
-    public String index(Model model){
+    public String index(Model model) {
         List<Category> categories = categoryService.getAll();
-        model.addAttribute("categories",categories);
+        model.addAttribute("categories", categories);
         return "admin/category/mainCategory";
     }
 
@@ -30,38 +30,29 @@ public class CategoryController {
     }
 
     @PostMapping("/insertCategory")
-    public String save(@ModelAttribute("category")Category category) {
-        boolean check = categoryService.add(category);
-        if(check) {
-            return "redirect:/admin/category";
-        }
-
-        return "admin/category/mainCategory";
+    public String save(@ModelAttribute("category") Category category) {
+        categoryService.save(category);
+        return "redirect:/admin/category";
     }
 
-    @GetMapping( "/updateCategory/{id}")
-    public String update(Model model,@PathVariable Long id) {
+    @GetMapping("/updateCategory/{id}")
+    public String update(Model model, @PathVariable Long id) {
         Category category = categoryService.findById(id);
         model.addAttribute("category", category);
         return "admin/category/updateCategory";
     }
 
-    @PostMapping( "/editCategory")
-    public String edit(@ModelAttribute("category")Category category) {
-        boolean check = categoryService.update(category);
-        if(check) {
-            return "redirect:/admin/category";
-        }
-        return "admin/category/mainCategory";
+    @PostMapping("/editCategory")
+    public String edit(@ModelAttribute("category") Category category) {
+        categoryService.save(category);
+        return "redirect:/admin/category";
     }
 
     @GetMapping("/deleteCategory/{id}")
     public String delete(@PathVariable Long id) {
+        categoryService.delete(id);
+        return "redirect:/admin/category";
 
-        if(categoryService.delete(id)) {
-            return "redirect:/admin/category";
-        }
-        return "redirect:/category/mainCategory";
     }
 
 }

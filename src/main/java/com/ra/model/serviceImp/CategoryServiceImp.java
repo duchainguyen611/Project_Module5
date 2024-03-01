@@ -18,37 +18,15 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public Boolean add(Category category) {
-        try {
-            categoryRepository.save(category);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+    public Category save(Category category) {
+        return categoryRepository.save(category);
     }
 
     @Override
-    public Boolean update(Category category) {
-        try {
-            categoryRepository.save(category);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+    public void delete(Long Id) {
+        categoryRepository.deleteById(Id);
     }
 
-    @Override
-    public Boolean delete(Long Id) {
-        try {
-            categoryRepository.deleteById(Id);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     @Override
     public Category findById(Long Id) {

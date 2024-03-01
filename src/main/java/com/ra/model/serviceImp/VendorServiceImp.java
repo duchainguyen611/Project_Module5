@@ -7,47 +7,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class VendorServiceImp implements VendorService {
     @Autowired
     private VendorRepository vendorRepository;
+
     @Override
     public List<Vendor> getAll() {
         return vendorRepository.findAll();
     }
 
     @Override
-    public Boolean add(Vendor vendor) {
-        try {
-            vendorRepository.save(vendor);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+    public Vendor save(Vendor vendor) {
+        return vendorRepository.save(vendor);
     }
 
     @Override
-    public Boolean update(Vendor vendor) {
-        try {
-            vendorRepository.save(vendor);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+    public void delete(Long Id) {
+        vendorRepository.deleteById(Id);
     }
 
-    @Override
-    public Boolean delete(Long Id) {
-        try {
-            vendorRepository.deleteById(Id);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     @Override
     public Vendor findById(Long Id) {
