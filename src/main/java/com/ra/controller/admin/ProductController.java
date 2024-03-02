@@ -80,7 +80,8 @@ public class ProductController {
 
     @PostMapping(value = "/editProduct")
     public String edit(@ModelAttribute("product") Product product, @RequestParam("imageProduct") MultipartFile file) {
-        String fileName = file.getOriginalFilename();
+        String
+                fileName = file.getOriginalFilename();
         try {
             FileCopyUtils.copy(file.getBytes(), new File(pathUpload + fileName));
             product.setImage(fileName);

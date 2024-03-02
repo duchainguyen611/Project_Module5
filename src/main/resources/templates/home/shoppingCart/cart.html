@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 
-<!-- Mirrored from andit.co/projects/html/andshop/andshop_frontend/wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 08:33:33 GMT -->
+<!-- Mirrored from andit.co/projects/html/andshop/andshop_frontend/cart-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 08:33:02 GMT -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title -->
-    <title>Wishlist - AndShop</title>
+    <title>Cart - AndShop</title>
     <!-- Bootstrap css -->
     <link rel="stylesheet" href="/home/css/bootstrap.min.css"/>
     <!-- Fontawesome css -->
@@ -47,7 +47,7 @@
 </head>
 
 <body>
-    <div th:replace="home/fragments/header :: headerHomeFragment"></div>
+<div th:replace="home/fragments/header :: headerHomeFragment"></div>
 
 <!-- Banner Area -->
 <section id="common_banner_one">
@@ -55,97 +55,97 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="common_banner_text">
-                    <h2>Wishlist</h2>
+                    <h2>Cart</h2>
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><i class="fas fa-slash"></i></li>
-                        <li class="active">Wishlist</li>
+                        <li class="active">Cart</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Checkout-Area -->
-<section id="Wishlist_area" class="ptb-100">
+<!-- Cart-Area -->
+<section id="cart_area_two" class="ptb-100">
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="table_desc">
                     <div class="table_page table-responsive">
                         <table>
-                            <!-- Start Wishlist Table Head -->
+                            <!-- Start Cart Table Head -->
                             <thead>
                             <tr>
-                                <th class="product_remove">Remove</th>
                                 <th class="product_thumb">Image</th>
                                 <th class="product_name">Product</th>
                                 <th class="product-price">Price</th>
-                                <th class="product_stock">Stock Status</th>
-                                <th class="product_addcart">Add To Cart</th>
+                                <th class="product_quantity">Quantity</th>
+                                <th class="product_total">Total</th>
+                                <th class="product_remove">Remove</th>
                             </tr>
                             </thead> <!-- End Cart Table Head -->
                             <tbody>
-                            <!-- Start Wishlist Single Item-->
-                            <tr>
-                                <td class="product_remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
+                            <tr th:each="cart:${carts}">
                                 <td class="product_thumb">
-                                    <a href="product-single.html">
-                                        <img src="/home/img/product-image/product5.png" alt="img">
-                                    </a>
+                                    <a href="">
+                                        <img th:src="@{|/uploads/${cart.product.image}|}" alt="img"></a>
                                 </td>
-                                <td class="product_name"><a href="product-single.html">Handbag fringilla</a>
+                                <td class="product_name">
+                                    <a href="" th:text="${cart.product.productName}"></a>
                                 </td>
-                                <td class="product-price">$65.00</td>
-                                <td class="product_stock">
-                                    <h6>In Stock</h6>
+                                <td class="product-price" th:text="${cart.product.unitPrice}"></td>
+                                <td class="product_quantity">
+                                    <div class="plus-minus-input">
+                                        <div class="input-group-button">
+                                            <button type="button" class="button minusButton" data-quantity="minus"
+                                                    th:data-field="${cart.id}" >
+                                                <i class="fa fa-minus" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                        <input class="form-control quantity-input" type="number"
+                                               th:name="${cart.id}"
+                                               th:value="${cart.orderQuantity}" onchange="updateCartItemQuantity(this.getAttribute('name'), this.value)"/>
+                                        <div class="input-group-button">
+                                            <button type="button" class="button plusButton" data-quantity="plus"
+                                                    th:data-field="${cart.id}">
+                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </td>
-                                <td class="product_addcart">
-                                    <a href="cart.html" class="theme-btn-one btn-black-overlay btn_sm">Add To
-                                        Cart</a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="product_remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
-                                <td class="product_thumb"><a href="product-single.html"><img
-                                        src="/home/img/product-image/product4.png" alt=""></a></td>
-                                <td class="product_name"><a href="product-single.html">Handbags
-                                    justo</a></td>
-                                <td class="product-price">$90.00</td>
-                                <td class="product_stock">
-                                    <h6>In Stock</h6>
-                                </td>
-                                <td class="product_addcart">
-                                    <a href="cart.html" class="theme-btn-one btn-black-overlay btn_sm">Add To
-                                        Cart</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="product_remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
-                                <td class="product_thumb"><a href="product-single.html"><img
-                                        src="/home/img/product-image/product3.png" alt=""></a></td>
-                                <td class="product_name"><a href="product-single.html">Handbag
-                                    elit</a></td>
-                                <td class="product-price">$80.00</td>
-                                <td class="product_stock">
-                                    <h6>In Stock</h6>
-                                </td>
-                                <td class="product_addcart">
-                                    <a href="cart.html" class="theme-btn-one btn-black-overlay btn_sm">Add To
-                                        Cart</a>
-                                </td>
-                            </tr>
+                                <td class="product_total"
+                                    th:text="${cart.product.unitPrice}*${cart.orderQuantity}"></td>
+                                <td class="product_remove"><a th:href="@{/user/cart/deleteProduct/{id}(id=${cart.id})}"><i
+                                        class="far fa-trash-alt"></i></a></td>
+                            </tr> <!-- End Cart Single Item-->
                             </tbody>
                         </table>
+                    </div>
+                    <div class="cart_submit">
+                        <button class="theme-btn-one btn-black-overlay btn_sm" type="submit">update cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="coupon_code right" data-aos="fade-up" data-aos-delay="400">
+                    <h3>Cart Total</h3>
+                    <div class="coupon_inner ">
+
+                        <div class="cart_subtotal" style="justify-content: flex-end!important;">
+                            <p>TOTAL:</p>
+                            <p class="cart_amount totalAmountElement">0</p>
+                        </div>
+                        <div class="checkout_btn">
+                            <a href="checkout.html" class="theme-btn-one btn-black-overlay btn_sm">Proceed to
+                                Checkout</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-
 <!-- footer Area -->
 <footer id="footer_one">
     <div class="container">
@@ -364,7 +364,6 @@
     </div>
 </div>
 
-
 <!-- Jquery -->
 <script src="/home/js/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap js -->
@@ -374,19 +373,130 @@
 <script src="/home/js/owl.carousel.min.js"></script>
 <!-- Menu js -->
 <script src="/home/js/meanmenu.min.js"></script>
+<!-- img-upload js -->
+<script src="/home/js/img-upload.js"></script>
 <!-- Count js -->
 <script src="/home/js/count.js"></script>
-<!-- Timer js -->
-<script src="/home/js/nice-select.min.js"></script>
 <!-- wow.js -->
 <script src="/home/js/wow.min.js"></script>
 <!-- Custom js -->
 <script src="/home/js/custom.js"></script>
-<script>
-    new WOW().init();
-</script>
 </body>
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var quantityInputs = document.querySelectorAll('.quantity-input');
+        var plusButtons = document.querySelectorAll('.plusButton');
+        var minusButtons = document.querySelectorAll('.minusButton');
+        var totalAmountElement = document.querySelector('.totalAmountElement');
+
+        quantityInputs.forEach(function (input) {
+            input.addEventListener('input', function () {
+                updateTotalPriceInput(input);
+                calculateTotalAmount();
+            });
+        });
+
+        plusButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                updateTotalPriceButtonPlus(button);
+                calculateTotalAmount();
+            });
+        });
+
+        minusButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                updateTotalPriceButtonMinus(button);
+                calculateTotalAmount();
+            });
+        });
+
+        function updateTotalPriceInput(input) {
+            var row = input.closest('tr');
+            var unitPrice = parseFloat(row.querySelector('.product-price').textContent);
+            var quantity = parseFloat(input.value);
+            var totalPrice = unitPrice * quantity;
+
+            row.querySelector('.product_total').textContent = totalPrice.toFixed(2);
+        }
+
+        function updateTotalPriceButtonPlus(button) {
+            var row = button.closest('tr');
+            var unitPrice = parseFloat(row.querySelector('.product-price').textContent);
+            var quantityInput = row.querySelector('.quantity-input');
+            var quantity = parseFloat(quantityInput.value);
+            // console.log("old quantity:"+quantity);
+            quantity +=1;
+            var totalPrice = unitPrice * quantity;
+            // console.log("plus => "+quantity);
+            // console.log(totalPrice);
+            row.querySelector('.product_total').textContent = totalPrice.toFixed(2);
+        }
+        function updateTotalPriceButtonMinus(button) {
+            var row = button.closest('tr');
+            var unitPrice = parseFloat(row.querySelector('.product-price').textContent);
+            var quantityInput = row.querySelector('.quantity-input');
+            var quantity = parseFloat(quantityInput.value);
+            // console.log("old quantity:"+quantity);
+            quantity -=1;
+            var totalPrice = unitPrice * quantity;
+            // console.log("minus => "+quantity);
+            // console.log(totalPrice);
+            row.querySelector('.product_total').textContent = totalPrice.toFixed(2);
+        }
+
+        function calculateTotalAmount() {
+            var productTotalElements = document.querySelectorAll('.product_total');
+            var totalAmount = 0;
+
+            productTotalElements.forEach(function (totalElement) {
+                totalAmount += parseFloat(totalElement.textContent) || 0;
+            });
+
+            if (totalAmountElement) {
+                totalAmountElement.textContent = totalAmount.toFixed(2);
+            }
+        }
+    });
+
+    function updateCartItemQuantity(idCart, quantityProduct) {
+        $.ajax({
+            type: 'POST',
+            url: '/user/cart/updateQuantity',
+            data: {
+                idCart: idCart,
+                quantityProduct: quantityProduct
+            },
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (error) {
+                console.log('Error:', error);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('.plusButton, .minusButton').on('click', function () {
+            var field = $(this).data('field');
+            var inputElement = $('input[data-cart-id="' + field + '"]');
+            console.log(inputElement);
+            if (inputElement.length >   0 ) {
+                var currentValue = parseInt(inputElement.val());
+                if ($(this).data('quantity') === 'plus') {
+                    updateCartItemQuantity(field, currentValue + 1);
+                } else {
+                    // Ensure the quantity doesn't go below 0
+                    if (currentValue > 0) {
+                        updateCartItemQuantity(field, currentValue - 1);
+                    }
+                }
+            } else {
+                console.log('Input element not found for field:', field);
+            }
+        });
+    });
+</script>
 
 
-<!-- Mirrored from andit.co/projects/html/andshop/andshop_frontend/wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 08:33:33 GMT -->
+<!-- Mirrored from andit.co/projects/html/andshop/andshop_frontend/cart-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 08:33:02 GMT -->
 </html>

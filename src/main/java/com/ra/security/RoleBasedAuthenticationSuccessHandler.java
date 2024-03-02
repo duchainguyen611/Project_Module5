@@ -21,9 +21,9 @@ public class RoleBasedAuthenticationSuccessHandler implements AuthenticationSucc
     private String determineTargetUrl(Authentication authentication) {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         if (authorities.contains(new SimpleGrantedAuthority("ROLE_USER"))) {
-            return "/v1/user/home";
+            return "/user";
         } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            return "/v1/admin/home";
+            return "/admin";
         } else {
             throw new IllegalStateException("Unexpected user role");
         }

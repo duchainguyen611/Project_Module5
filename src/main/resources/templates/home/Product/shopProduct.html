@@ -105,13 +105,14 @@
                                          alt="Product"/>
                                 </a>
                                 <div class="actions">
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
+                                    <a href="wishlist.html" class="action wishlist" title="Wishlist" type="submit"><i
                                             class="far fa-heart"></i></a>
                                 </div>
-                                <button title="Add To Cart" class="add-to-cart offcanvas-toggle"
-                                        data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
-                                    Add To Cart
-                                </button>
+                                <form th:action="@{/user/addProductToShoppingCart/{productId}(productId=${product.id})}" method="post">
+                                    <button type="submit" title="Add To Cart" class="add-to-cart offcanvas-toggle" data-bs-toggle="modal">
+                                        Add To Cart
+                                    </button>
+                                </form>
                             </div>
                             <div class="content">
                                 <h5 class="title"><a th:href="@{/product/productDetail/{id}(id=${product.id})}"
