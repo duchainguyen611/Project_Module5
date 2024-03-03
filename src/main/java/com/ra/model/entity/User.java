@@ -50,9 +50,4 @@ public class User {
     @JsonIgnore
     List<WishList> wishLists;
 
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    List<Address> addresses;
-
-
 }

@@ -103,12 +103,14 @@
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </button>
                                         </div>
-                                        <input class="form-control quantity-input" type="number"
+                                        <input class="form-control quantity-input"
+                                               type="number"
                                                th:name="${cart.id}"
-                                               th:value="${cart.orderQuantity}" onchange="updateCartItemQuantity(this.getAttribute('name'), this.value)"/>
+                                               th:value="${cart.orderQuantity}"
+                                               onchange="updateCartItemQuantity(this.getAttribute('name'), this.value)"/>
                                         <div class="input-group-button">
                                             <button type="button" class="button plusButton" data-quantity="plus"
-                                                    th:data-field="${cart.id}">
+                                                    th:data-field="${cart.id}" >
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                             </button>
                                         </div>
@@ -122,9 +124,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="cart_submit">
-                        <button class="theme-btn-one btn-black-overlay btn_sm" type="submit">update cart</button>
-                    </div>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12">
@@ -133,11 +132,11 @@
                     <div class="coupon_inner ">
 
                         <div class="cart_subtotal" style="justify-content: flex-end!important;">
-                            <p>TOTAL:</p>
-                            <p class="cart_amount totalAmountElement">0</p>
+                            <p>TOTAL: </p>
+                            <p class="cart_amount totalAmountElement" th:text="${totalPrice}"></p>
                         </div>
                         <div class="checkout_btn">
-                            <a href="checkout.html" class="theme-btn-one btn-black-overlay btn_sm">Proceed to
+                            <a href="/user/cart/checkOut" class="theme-btn-one btn-black-overlay btn_sm">Proceed to
                                 Checkout</a>
                         </div>
                     </div>
@@ -437,11 +436,13 @@
             var quantityInput = row.querySelector('.quantity-input');
             var quantity = parseFloat(quantityInput.value);
             // console.log("old quantity:"+quantity);
-            quantity -=1;
-            var totalPrice = unitPrice * quantity;
-            // console.log("minus => "+quantity);
-            // console.log(totalPrice);
-            row.querySelector('.product_total').textContent = totalPrice.toFixed(2);
+
+                quantity -=1;
+                var totalPrice = unitPrice * quantity;
+                // console.log("minus => "+quantity);
+                // console.log(totalPrice);
+                row.querySelector('.product_total').textContent = totalPrice.toFixed(2);
+
         }
 
         function calculateTotalAmount() {
@@ -478,18 +479,10 @@
     $(document).ready(function () {
         $('.plusButton, .minusButton').on('click', function () {
             var field = $(this).data('field');
-            var inputElement = $('input[data-cart-id="' + field + '"]');
-            console.log(inputElement);
-            if (inputElement.length >   0 ) {
-                var currentValue = parseInt(inputElement.val());
-                if ($(this).data('quantity') === 'plus') {
-                    updateCartItemQuantity(field, currentValue + 1);
-                } else {
-                    // Ensure the quantity doesn't go below 0
-                    if (currentValue > 0) {
-                        updateCartItemQuantity(field, currentValue - 1);
-                    }
-                }
+            var inputElement = $('input[name="' + field + '"]');
+            if (inputElement.length > 0) {
+                if (inputElement.val() > 0)
+                    updateCartItemQuantity(field, inputElement.val());
             } else {
                 console.log('Input element not found for field:', field);
             }
