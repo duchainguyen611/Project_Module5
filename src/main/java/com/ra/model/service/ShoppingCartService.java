@@ -14,4 +14,5 @@ public interface ShoppingCartService {
     void updateOrderQuantity(Long id,Integer quantity);
     void deleteByUser(User user);
     void checkOut(CheckOutInfor checkOutInfor);
+    ShoppingCart findByIdAndUser(Long id, User user);
 }

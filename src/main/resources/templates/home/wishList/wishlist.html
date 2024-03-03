@@ -47,7 +47,7 @@
 </head>
 
 <body>
-    <div th:replace="home/fragments/header :: headerHomeFragment"></div>
+<div th:replace="home/fragments/header :: headerHomeFragment"></div>
 
 <!-- Banner Area -->
 <section id="common_banner_one">
@@ -85,57 +85,31 @@
                                 <th class="product_addcart">Add To Cart</th>
                             </tr>
                             </thead> <!-- End Cart Table Head -->
-                            <tbody>
+                            <tbody th:each="wishList:${wishLists}">
                             <!-- Start Wishlist Single Item-->
                             <tr>
-                                <td class="product_remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
+                                <td class="product_remove"><a
+                                        th:href="@{/user/wishList/deleteProduct/{id}(id=${wishList.id})}"><i
+                                        class="far fa-trash-alt"></i></a></td>
                                 <td class="product_thumb">
-                                    <a href="product-single.html">
-                                        <img src="/home/img/product-image/product5.png" alt="img">
+                                    <a href="">
+                                        <img th:src="@{|/uploads/${wishList.product.image}|}" alt="img">
                                     </a>
                                 </td>
-                                <td class="product_name"><a href="product-single.html">Handbag fringilla</a>
+                                <td class="product_name"><a href="" th:text="${wishList.product.productName}"></a>
                                 </td>
-                                <td class="product-price">$65.00</td>
+                                <td class="product-price" th:text="'$'+${wishList.product.unitPrice}"></td>
                                 <td class="product_stock">
-                                    <h6>In Stock</h6>
+                                    <h6 th:text="${wishList.product.stockQuantity}>0?'In Stock':'Out Of Stock'"></h6>
                                 </td>
                                 <td class="product_addcart">
-                                    <a href="cart.html" class="theme-btn-one btn-black-overlay btn_sm">Add To
-                                        Cart</a>
+                                    <form th:action="@{/user/addProductFromWishListToShoppingCart/{productId}(productId=${wishList.product.id})}" method="post">
+                                        <button type="submit" class="theme-btn-one btn-black-overlay btn_sm">Add To
+                                            Cart</button>
+                                    </form>
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td class="product_remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
-                                <td class="product_thumb"><a href="product-single.html"><img
-                                        src="/home/img/product-image/product4.png" alt=""></a></td>
-                                <td class="product_name"><a href="product-single.html">Handbags
-                                    justo</a></td>
-                                <td class="product-price">$90.00</td>
-                                <td class="product_stock">
-                                    <h6>In Stock</h6>
-                                </td>
-                                <td class="product_addcart">
-                                    <a href="cart.html" class="theme-btn-one btn-black-overlay btn_sm">Add To
-                                        Cart</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="product_remove"><a href="#"><i class="far fa-trash-alt"></i></a></td>
-                                <td class="product_thumb"><a href="product-single.html"><img
-                                        src="/home/img/product-image/product3.png" alt=""></a></td>
-                                <td class="product_name"><a href="product-single.html">Handbag
-                                    elit</a></td>
-                                <td class="product-price">$80.00</td>
-                                <td class="product_stock">
-                                    <h6>In Stock</h6>
-                                </td>
-                                <td class="product_addcart">
-                                    <a href="cart.html" class="theme-btn-one btn-black-overlay btn_sm">Add To
-                                        Cart</a>
-                                </td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>

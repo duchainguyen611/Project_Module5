@@ -96,5 +96,10 @@ public class ShoppingCartServiceImp implements ShoppingCartService {
         deleteByUser(user);
     }
 
+    @Override
+    public ShoppingCart findByIdAndUser(Long id, User user) {
+        return shoppingCartRepository.findByIdAndUser(id,user);
+    }
+
 
 }

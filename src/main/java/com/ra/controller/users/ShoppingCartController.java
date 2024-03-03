@@ -8,6 +8,7 @@ import com.ra.model.service.ProductService;
 import com.ra.model.service.ShoppingCartService;
 import com.ra.model.service.UserService;
 import com.ra.security.UserDetail.UserLogin;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

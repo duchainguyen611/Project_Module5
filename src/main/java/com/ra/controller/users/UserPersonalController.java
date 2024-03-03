@@ -37,8 +37,10 @@ public class UserPersonalController {
 
     @GetMapping("/invoiceDetail/{id}")
     public String invoiceDetail(Model model, @PathVariable Long id){
+        User user = userLogin.userLogin();
         Invoice invoice = invoiceService.findById(id);
         List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice(invoice);
+        model.addAttribute("user",user);
         model.addAttribute("invoice",invoice);
         model.addAttribute("invoiceDetails",invoiceDetails);
         return "home/invoice/invoice";

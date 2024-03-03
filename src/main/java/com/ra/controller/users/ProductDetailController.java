@@ -10,41 +10,37 @@ import com.ra.model.service.WishListService;
 import com.ra.security.UserDetail.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/user")
-public class WishListController {
-    @Autowired
-    private WishListService wishListService;
+public class ProductDetailController {
     @Autowired
     private UserLogin userLogin;
     @Autowired
     private ProductService productService;
     @Autowired
     private ShoppingCartService shoppingCartService;
-    @GetMapping("/wishList")
-    public String shoppingCart(Model model){
+    @Autowired
+    private WishListService wishListService;
+
+
+    @PostMapping("/addProductFromProductDetailToShoppingCart/{productId}")
+    public String addProductToShoppingCart(@PathVariable Long productId,
+                                           @RequestParam(name = "quantityProduct")Integer quantityProduct) {
         User user = userLogin.userLogin();
-        List<WishList> wishLists = wishListService.getAllByUser(user);
-        model.addAttribute("wishLists",wishLists);
-        return "home/wishList/wishlist";
+        ShoppingCart cart = new ShoppingCart();
+        cart.setProduct(productService.findById(productId));
+        cart.setOrderQuantity(quantityProduct);
+        cart.setUser(user);
+        shoppingCartService.save(cart);
+        return "redirect:/product/productDetail/" + productId;
     }
 
-    @GetMapping("/wishList/deleteProduct/{id}")
-    public String deleteProduct(@PathVariable Long id){
-        User user = userLogin.userLogin();
-        wishListService.deleteByUserAndId(user,id);
-        return "redirect:/user/wishList";
-    }
-
-    @PostMapping("/addProductToWishList/{productId}")
+    @PostMapping("/addProductFromProductDetailToWishList/{productId}")
     public String addProductToWishList(@PathVariable Long productId){
         User user = userLogin.userLogin();
         WishList wishList = new WishList();
@@ -52,17 +48,6 @@ public class WishListController {
         wishList.setProduct(product);
         wishList.setUser(user);
         wishListService.save(wishList);
-        return "redirect:/shop";
-    }
-
-    @PostMapping("/addProductFromWishListToShoppingCart/{productId}")
-    public String addProductToShoppingCart(@PathVariable Long productId) {
-        User user = userLogin.userLogin();
-        ShoppingCart cart = new ShoppingCart();
-        cart.setProduct(productService.findById(productId));
-        cart.setOrderQuantity(1);
-        cart.setUser(user);
-        shoppingCartService.save(cart);
-        return "redirect:/user/wishList";
+        return "redirect:/product/productDetail/" + productId;
     }
 }

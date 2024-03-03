@@ -105,11 +105,16 @@
                                          alt="Product"/>
                                 </a>
                                 <div class="actions">
-                                    <a href="wishlist.html" class="action wishlist" title="Wishlist" type="submit"><i
-                                            class="far fa-heart"></i></a>
+                                    <form th:action="@{/user/addProductToWishList/{productId}(productId=${product.id})}"
+                                          method="post">
+                                        <button class="action wishlist" title="Wishlist" type="submit"><i
+                                                class="far fa-heart"></i></button>
+                                    </form>
                                 </div>
-                                <form th:action="@{/user/addProductToShoppingCart/{productId}(productId=${product.id})}" method="post">
-                                    <button type="submit" title="Add To Cart" class="add-to-cart offcanvas-toggle" data-bs-toggle="modal">
+                                <form th:action="@{/user/addProductToShoppingCart/{productId}(productId=${product.id})}"
+                                      method="post">
+                                    <button type="submit" title="Add To Cart" class="add-to-cart offcanvas-toggle"
+                                            data-bs-toggle="modal">
                                         Add To Cart
                                     </button>
                                 </form>

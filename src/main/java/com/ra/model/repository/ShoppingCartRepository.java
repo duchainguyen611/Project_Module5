@@ -12,4 +12,5 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart,Long>
     List<ShoppingCart> getAllByUser(User user);
     void deleteShoppingCartByIdAndUser(Long id, User user);
     void deleteByUser(User user);
+    ShoppingCart findByIdAndUser(Long id, User user);
 }

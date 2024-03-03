@@ -87,13 +87,13 @@
               <div class="detail-bottom">
                 <ul>
                   <li><span>issue date :</span>
-                    <h4> 20 march, 2020</h4>
+                    <h4 th:text="${invoice.createdAt}"> </h4>
                   </li>
                   <li><span>invoice no :</span>
-                    <h4> 908452</h4>
+                    <h4 th:text="${invoice.serialNumber}"> </h4>
                   </li>
                   <li><span>email :</span>
-                    <h4> user@gmail.com</h4>
+                    <h4 th:text="${user.email}"> </h4>
                   </li>
                 </ul>
               </div>
