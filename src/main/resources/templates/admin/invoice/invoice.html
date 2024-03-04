@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html xmlns:th="http://www.thymeleaf.org">
 
 
 <!-- Mirrored from andit.co/projects/html/andshop/andshop-dashboard/invoice.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 08:34:03 GMT -->
@@ -70,28 +70,25 @@
 												<tr>
 													<th>ID</th>
 													<th>Customer name</th>
-													<th>Seller name</th>
-													<th>Order date</th>
-													<th>Amount</th>
-													<th>Payment type </th>
+													<th>Serial Number</th>
+													<th>Created At</th>
+													<th>Total Price </th>
 													<th>Status</th>
 													<th>Action</th>
 												</tr>
 											</thead>
-
 											<tbody>
-												<tr>
-													<td>#001</td>
-													<td>Samuel jackson</td>
-													<td>Otobi furniture</td>
-													<td>25 Feb 2022</td>
-													<td>$12,200</td>
-													<td>Credit card</td>
-													<td> <span class="badge badge-success">Payment accepted</span> </td>
+												<tr th:each="invoice:${invoices}">
+													<td th:text="${invoice.id}"></td>
+													<td th:text="${invoice.user.fullName}"></td>
+													<td th:text="${invoice.serialNumber}"></td>
+													<td th:text="${invoice.createdAt}"></td>
+													<td th:text="${invoice.totalPrice}"></td>
+													<td> <span class="badge badge-success" th:text="${invoice.statusInvoice}"></span> </td>
 													<td>
 														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
+															<a type="button"
+																class="btn btn-outline-success" th:href="@{/admin/invoiceDetail/{id}(id=${invoice.id})}">Detail</a>
 															<button type="button"
 																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
 																data-bs-toggle="dropdown" aria-haspopup="true"
@@ -99,108 +96,12 @@
 																<span class="sr-only">Info</span>
 															</button>
 															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">View</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>#001</td>
-													<td>Samuel jackson</td>
-													<td>Otobi furniture</td>
-													<td>25 Feb 2022</td>
-													<td>$12,200</td>
-													<td>Credit card</td>
-													<td> <span class="badge badge-success">Payment accepted</span> </td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">View</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>#001</td>
-													<td>Samuel jackson</td>
-													<td>Otobi furniture</td>
-													<td>25 Feb 2022</td>
-													<td>$12,200</td>
-													<td>Credit card</td>
-													<td> <span class="badge badge-success">Payment accepted</span> </td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">View</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>#001</td>
-													<td>Samuel jackson</td>
-													<td>Otobi furniture</td>
-													<td>25 Feb 2022</td>
-													<td>$12,200</td>
-													<td>Credit card</td>
-													<td> <span class="badge badge-success">Payment accepted</span> </td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">View</a>
-																<a class="dropdown-item" href="#">Delete</a>
-															</div>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>#001</td>
-													<td>Samuel jackson</td>
-													<td>Otobi furniture</td>
-													<td>25 Feb 2022</td>
-													<td>$12,200</td>
-													<td>Credit card</td>
-													<td> <span class="badge badge-success">Payment accepted</span> </td>
-													<td>
-														<div class="btn-group mb-1">
-															<button type="button"
-																class="btn btn-outline-success">Info</button>
-															<button type="button"
-																class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
-																data-bs-toggle="dropdown" aria-haspopup="true"
-																aria-expanded="false" data-display="static">
-																<span class="sr-only">Info</span>
-															</button>
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#">View</a>
-																<a class="dropdown-item" href="#">Delete</a>
+																<a class="dropdown-item" href="#">WAITING</a>
+																<a class="dropdown-item" href="#">CONFIRM</a>
+																<a class="dropdown-item" href="#">DELIVERY</a>
+																<a class="dropdown-item" href="#">SUCCESS</a>
+																<a class="dropdown-item" href="#">CANCEL</a>
+																<a class="dropdown-item" href="#">DENIED</a>
 															</div>
 														</div>
 													</td>

@@ -158,7 +158,24 @@
 	<script th:replace="admin/fragments/updateFile :: updateFileFragment"></script>
 
 </body>
+<script>
+	// Lắng nghe sự kiện khi người dùng chọn file
+	document.getElementById('imageInput').addEventListener('change', function(event) {
+		var file = event.target.files[0];
+		var reader = new FileReader();
 
+		// Đọc nội dung của file
+		reader.onload = function(e) {
+			var imageUrl = e.target.result;
+
+			// Gán URL của ảnh vào thuộc tính src của thẻ <img>
+			document.getElementById('previewImage').src = imageUrl;
+		};
+
+		// Đọc file dưới dạng URL
+		reader.readAsDataURL(file);
+	});
+</script>
 
 <!-- Mirrored from andit.co/projects/html/andshop/andshop-dashboard/add-vendor.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 08:33:56 GMT -->
 </html>

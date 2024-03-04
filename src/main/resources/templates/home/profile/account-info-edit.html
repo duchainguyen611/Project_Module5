@@ -2,31 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 
-<!-- Mirrored from andit.co/projects/html/andshop/andshop_frontend/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 08:33:25 GMT -->
+<!-- Mirrored from andit.co/projects/html/andshop/andshop_frontend/account-info-edit.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 08:34:08 GMT -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title -->
-    <title>My Account - AndShop</title>
+    <title>Account Info Edit - AndShop</title>
     <!-- Bootstrap css -->
-    <link rel="stylesheet" href="/home/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/home/css/bootstrap.min.css">
     <!-- Fontawesome css -->
-    <link rel="stylesheet" href="/home/css/fontawesome.all.min.css" />
+    <link rel="stylesheet" href="/home/css/fontawesome.all.min.css">
     <!-- owl.carousel css -->
-    <link rel="stylesheet" href="/home/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="/home/css/owl.carousel.min.css">
     <!-- owl.theme.default css -->
-    <link rel="stylesheet" href="/home/css/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="/home/css/owl.theme.default.min.css">
+    <!-- lineProgressbar css -->
+    <link rel="stylesheet" href="/home/css/jquery.lineProgressbar.css">
     <!-- animate css -->
-    <link rel="stylesheet" href="/home/css/animate.min.css" />
-    <!-- meanmenu css -->
-    <link rel="stylesheet" href="/home/css/meanmenu.min.css" />
+    <link rel="stylesheet" href="/home/css/animate.min.css">
     <!-- Style css -->
-    <link rel="stylesheet" href="/home/css/style.css" />
+    <link rel="stylesheet" href="/home/css/style.css">
     <!-- color css -->
-    <link rel="stylesheet" href="/home/css/color.css" />
+    <link rel="stylesheet" href="/home/css/color.css">
     <!-- Responsive css -->
-    <link rel="stylesheet" href="/home/css/responsive.css" />
+    <link rel="stylesheet" href="/home/css/responsive.css">
     <link rel="apple-touch-icon" sizes="57x57" href="/home/img/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/home/img/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/home/img/favicon/apple-icon-72x72.png">
@@ -49,128 +49,186 @@
 <body>
 
     <div th:replace="home/fragments/header :: headerHomeFragment"></div>
-
-
     <!-- Banner Area -->
     <section id="common_banner_one">
         <div class="container ">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="common_banner_text">
-                        <h2>My Account</h2>
+                        <h2>Account Info Edit</h2>
                         <ul>
                             <li><a href="index.html">Home</a></li>
                             <li><i class="fas fa-slash"></i></li>
-                            <li class="active">My Account</li>
+                            <li class="active">Account Info Edit</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- My-account-area-Area -->
-    <section id="my-account_area" class="ptb-100">
+
+    <!-- Account Info Edit Area  -->
+    <section id="account_edit" class="pt-100">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-3">
-                    <!-- Nav tabs -->
-                    <div class="dashboard_tab_button">
-                        <ul role="tablist" class="nav flex-column dashboard-list">
-                            <li> <a href="#!" data-bs-toggle="tab" data-bs-target="#orders"><i
-                                        class="fas fa-cart-arrow-down"></i>Invoice</a></li>
-                            <li><a href="#!" data-bs-toggle="tab" data-bs-target="#account-details"><i
-                                        class="fas fa-user"></i>Account
-                                    details</a>
-                            </li>
-                            <li><a href="/login" class=""><i class="fas fa-sign-out-alt"></i>logout</a></li>
-                        </ul>
+                <div class="col-lg-3">
+                    <div class="account_thumd">
+                        <div class="account_thumb_img">
+                            <img th:src="@{|/uploads/${user.image}|}" alt="img">
+                            <div class="fixed_icon"><i class="fas fa-camera"></i></div>
+                        </div>
+                        <h4 th:text="${user.getFullName()}"> </h4>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-9">
-                    <!-- Tab panes -->
-                    <div class="tab-content dashboard_content">
-                        <div class="tab-pane fade" id="orders">
-                            <div class="myaccount-content">
-                                <h4 class="title">Invoice </h4>
-                                <div class="table_page table-responsive">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Serial Number Invoice</th>
-                                                <th>Date</th>
-                                                <th>Status</th>
-                                                <th>Total</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody th:each="invoice:${invoiceList}">
-                                            <tr>
-                                                <td th:text="${invoice.serialNumber}"></td>
-                                                <td th:text="${invoice.createdAt}"></td>
-                                                <td><span class="success" th:text="${invoice.statusInvoice}"></span></td>
-                                                <td th:text="${invoice.totalPrice}"></td>
-                                                <td><a th:href="@{/user/invoiceDetail/{id}(id=${invoice.id})}" class="view">view</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                <div class="col-lg-9">
+                    <div class="account_setting">
+                        <div class="account_setting_heading">
+                            <h2>Account Details</h2>
+                            <p>Edit your account settings and change your password here.</p>
+                        </div>
+                        <form th:action="@{/user/editInformationProfile}" id="account_info_form" method="post" th:object="${user}" enctype="multipart/form-data">
+                            <input type="hidden" class="form-control" id="f_id"  required th:field="*{id}">
+                            <div class="input-radio">
+                                <span class="custom-radio"><input type="radio" value="true" th:field="*{sex}" name="id_gender"> Mr.</span>
+                                <span class="custom-radio"><input type="radio" value="false" th:field="*{sex}" name="id_gender"> Mrs.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="f_name">Full Name</label>
+                                <input type="text" class="form-control" id="f_name" th:field="*{fullName}" required>
+                                <label for="f_name">Phone</label>
+                                <input type="number" class="form-control" th:field="*{phone}" required>
+                                <label for="f_name">Address</label>
+                                <input type="text" class="form-control" th:field="*{address}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email_address">Email Address</label>
+                                <input type="text" class="form-control" id="email_address" th:field="*{email}" required>
+                            </div>
+                            <div class="avatar-upload">
+                                <div class="col-md-3 mb-3">
+                                    <img th:src="@{|/uploads/${user.image}|}" width="100%" id="previewImage">
+                                    <input type="hidden" th:field="*{image}">
+                                </div>
+                                <div class="col-md-9 mb-3">
+                                    <label class="form-label">Image</label>
+                                    <input type="file" class="form-control" th:name="imageUser" id="imageInput">
                                 </div>
                             </div>
-                        </div>
-                        <div class="tab-pane fade" id="account-details">
-                            <div class="myaccount-content">
-                                <h4 class="title">Account details</h4>
-                                <div class="login_form_container">
-                                    <div class="account_details_form">
-                                        <form action="" >
-                                            <div class="img_profiles">
-                                                <img th:src="@{|/uploads/${user.image}|}" alt="img">
-                                            </div>
+                            <button type="submit" class="theme-btn-one bg-black btn_sm">Update Information</button>
+                        </form>
 
-                                            <div class="input-radio">
-                                                <span class="custom-radio">
-                                                    <input th:text="${user.sex?'Mr':'Mrs'}"  type="radio" value="1" name="mr" checked> </span>
-                                            </div>
-                                            <div class="default-form-box mb-20">
-                                                <label>UserName</label>
-                                                <input type="text" name="last-name" class="form-control" value="Saiful"
-                                                       readonly th:value="${user.username}">
-                                            </div>
-                                            <div class="default-form-box mb-20">
-                                                <label>Full Name</label>
-                                                <input type="text" name="first-name" class="form-control" value="Kazi"
-                                                    readonly th:value="${user.fullName}">
-                                            </div>
-                                            <div class="default-form-box mb-20">
-                                                <label>Phone</label>
-                                                <input type="text" name="last-name" class="form-control" value="Saiful"
-                                                    readonly th:value="${user.phone}">
-                                            </div>
-                                            <div class="default-form-box mb-20">
-                                                <label>Email</label>
-                                                <input type="text" name="email-name" value="demo123@gmail.com"
-                                                    class="form-control" readonly th:value="${user.email}">
-                                            </div>
-                                            <div class="default-form-box mb-20">
-                                                <label>Address</label>
-                                                <input type="text" name="last-name" class="form-control" value="Saiful"
-                                                       readonly th:value="${user.address}">
-                                            </div>
-                                            <br>
-                                            <div class="save_button mt-3">
-                                                <a href="/user/updateProfile"
-                                                    class="theme-btn-one bg-black btn_sm">Update</a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                        <form action="/user/editPassWordProfile" id="account_pass_form" method="post" th:object="${user}" >
+
+                            <div class="form-group">
+                                <label for="current_password">Current Password</label>
+                                <input type="password" class="form-control" id="current_password"
+                                    placeholder="Enter your current password" required name="oldPassword">
+                                <label for="current_password">New Password</label>
+                                <input type="password" class="form-control" id="new_password"
+                                    placeholder="Enter your new password" required name="newPassword">
+                                <label for="current_password">Confirm Password</label>
+                                <input type="password" class="form-control" id="re_password"
+                                    placeholder="Re-type your new password" required name="conPassword">
                             </div>
-                        </div>
+                            <button type="submit" class="theme-btn-one bg-black btn_sm">Update Password</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Instagram Arae -->
+    <section id="instagram_area_one" class="pt-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="center_heading">
+                        <h2>Follow Us Instagram</h2>
+                        <p>Mauris luctus nisi sapien tristique dignissim ornare</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="instagram_post_slider owl-carousel owl-theme">
+                        <div class="instgram_post">
+                            <a href="#!">
+                                <i class="fab fa-instagram"></i>
+                                <img src="/home/img/instagram/post2.png" alt="img">
+                            </a>
+                        </div>
+                        <div class="instgram_post">
+                            <a href="#!">
+                                <i class="fab fa-instagram"></i>
+                                <img src="/home/img/instagram/post3.png" alt="img">
+                            </a>
+                        </div>
+                        <div class="instgram_post">
+                            <a href="#!">
+                                <i class="fab fa-instagram"></i>
+                                <img src="/home/img/instagram/post4.png" alt="img">
+                            </a>
+                        </div>
+                        <div class="instgram_post">
+                            <a href="#!">
+                                <i class="fab fa-instagram"></i>
+                                <img src="/home/img/instagram/post5.png" alt="img">
+                            </a>
+                        </div>
+                        <div class="instgram_post">
+                            <a href="#!">
+                                <i class="fab fa-instagram"></i>
+                                <img src="/home/img/instagram/post6.png" alt="img">
+                            </a>
+                        </div>
+                        <div class="instgram_post">
+                            <a href="#!">
+                                <i class="fab fa-instagram"></i>
+                                <img src="/home/img/instagram/post7.png" alt="img">
+                            </a>
+                        </div>
+                        <div class="instgram_post">
+                            <a href="#!">
+                                <i class="fab fa-instagram"></i>
+                                <img src="/home/img/instagram/post8.png" alt="img">
+                            </a>
+                        </div>
+                        <div class="instgram_post">
+                            <a href="#!">
+                                <i class="fab fa-instagram"></i>
+                                <img src="/home/img/instagram/post9.png" alt="img">
+                            </a>
+                        </div>
+                        <div class="instgram_post">
+                            <a href="#!">
+                                <i class="fab fa-instagram"></i>
+                                <img src="/home/img/instagram/post10.png" alt="img">
+                            </a>
+                        </div>
+                        <div class="instgram_post">
+                            <a href="#!">
+                                <i class="fab fa-instagram"></i>
+                                <img src="/home/img/instagram/post1.png" alt="img">
+                            </a>
+                        </div>
+                        <div class="instgram_post">
+                            <a href="#!">
+                                <i class="fab fa-instagram"></i>
+                                <img src="/home/img/instagram/post11.png" alt="img">
+                            </a>
+                        </div>
+                        <div class="instgram_post">
+                            <a href="#!">
+                                <i class="fab fa-instagram"></i>
+                                <img src="/home/img/instagram/post12.png" alt="img">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- footer Area -->
     <footer id="footer_one">
         <div class="container">
@@ -257,6 +315,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Shopingcart Modal Area Start-->
     <div class="modal right fade shoppingCartModal" id="shoppingCartModal" tabindex="-1" role="dialog">
@@ -388,7 +447,6 @@
         </div>
     </div>
 
-
     <!-- Jquery -->
     <script src="/home/js/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap js -->
@@ -400,14 +458,29 @@
     <script src="/home/js/meanmenu.min.js"></script>
     <!-- Count js -->
     <script src="/home/js/count.js"></script>
-    <!-- Timer js -->
-    <script src="/home/js/nice-select.min.js"></script>
     <!-- wow.js -->
     <script src="/home/js/wow.min.js"></script>
     <!-- Custom js -->
     <script src="/home/js/custom.js"></script>
 </body>
+<script>
+    // Lắng nghe sự kiện khi người dùng chọn file
+    document.getElementById('imageInput').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
 
+        // Đọc nội dung của file
+        reader.onload = function(e) {
+            var imageUrl = e.target.result;
 
-<!-- Mirrored from andit.co/projects/html/andshop/andshop_frontend/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 08:33:25 GMT -->
+            // Gán URL của ảnh vào thuộc tính src của thẻ <img>
+            document.getElementById('previewImage').src = imageUrl;
+        };
+
+        // Đọc file dưới dạng URL
+        reader.readAsDataURL(file);
+    });
+</script>
+
+<!-- Mirrored from andit.co/projects/html/andshop/andshop_frontend/account-info-edit.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 08:34:08 GMT -->
 </html>

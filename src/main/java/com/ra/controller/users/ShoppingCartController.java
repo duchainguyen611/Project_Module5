@@ -81,7 +81,7 @@ public class ShoppingCartController {
     @PostMapping("/checkOut")
     public String checkOut(@ModelAttribute("checkOutInfor")CheckOutInfor checkOutInfor){
         shoppingCartService.checkOut(checkOutInfor);
-        return "home/profile/my-account";
+        return "redirect:/user/profile";
     }
 
 }

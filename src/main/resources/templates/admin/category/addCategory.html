@@ -29,6 +29,14 @@
 	<link id="style.css" rel="stylesheet" href="/admin/css/style.css" />
 	<!-- FAVICON -->
 	<link href="/admin/img/favicon.png" rel="shortcut icon" />
+	<style>
+		.invalid-feedback{
+			font-size: 14px;
+			font-weight: 600;
+			text-align: left;
+			color: red;
+		}
+	</style>
 </head>
 
 <body class="ec-header-fixed ec-sidebar-fixed ec-sidebar-dark ec-header-light" id="body">
@@ -69,13 +77,15 @@
 
 										<form class="row" method="post" th:object="${category}" th:action="@{/admin/insertCategory}">
 											<div class="form-group col-6 ">
-												   <label for="text" class="col-form-label">Category name</label>
-													<input id="text" name="text" class="form-control here slug-title" type="text" th:field="*{categoryName}">
-											</div>
+												<label for="text" class="col-form-label">Category name</label>
+												<input id="text" name="text" class="form-control here slug-title" type="text" th:field="*{categoryName}" th:errorclass="is-invalid">
+												<div th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}" class="invalid-feedback"></div>
+ 												</div>
 											<div class="form-group col-6 ">
 												<label class="col-form-label">Description</label>
 												<div class="col-12">
-													<textarea id="fulldescription" name="fulldescription" cols="40" rows="4" class="form-control" th:field="*{description}"></textarea>
+													<textarea id="fulldescription" name="fulldescription" cols="40" rows="4" class="form-control" th:field="*{description}" th:errorclass="is-invalid"></textarea>
+													<div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="invalid-feedback"></div>
 												</div>
 											</div>
 											<div class="form-group col-6">

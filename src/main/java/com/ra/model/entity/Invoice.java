@@ -3,6 +3,7 @@ package com.ra.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ra.model.entity.Enum.StatusInvoice;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

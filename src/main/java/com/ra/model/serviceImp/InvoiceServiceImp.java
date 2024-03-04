@@ -23,5 +23,10 @@ public class InvoiceServiceImp implements InvoiceService {
         return invoiceRepository.findAllByUser(user);
     }
 
+    @Override
+    public List<Invoice> findAll() {
+        return invoiceRepository.findAll();
+    }
+
 
 }

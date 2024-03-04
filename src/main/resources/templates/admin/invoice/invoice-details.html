@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html xmlns:th="http://www.thymeleaf.org">
 
 
 <!-- Mirrored from andit.co/projects/html/andshop/andshop-dashboard/invoice-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Feb 2024 08:34:03 GMT -->
@@ -77,71 +77,14 @@
 											<div class="col-lg-6">
 												<div class="invoice_details_text">
 													 <h4>Invoice</h4>
-													 <p>Order Id: <span>#JK54736OM</span></p>
-													 <p>Invoice Date: <span>23 Mar 2022</span></p>
+													 <p>Serial Number: <span th:text="${invoice.serialNumber}"></span></p>
+													 <p>Invoice Date: <span th:text="${invoice.createdAt}"></span></p>
 												</div>
 											</div>
 										</div>
 									</div>
-									
-									<div class="row">
-										<div class="col-xl-3 col-lg-6">
-											<address class="info-grid">
-												<div class="info-content">
-												    <h5 class="title_infos"> <span class="mdi mdi-account-circle"></span> Customer info</h5> 
-													 <ul>
-														<li>Name: <span> John Petricia</span></li>
-														<li>Email: <span>petri@domain.com</span> </li>
-														<li>Phone: <span>(012) 345-678-9012</span></li>
-													 </ul>
-													 <a href="#!">View profile</a>
-												</div>
-											</address>
-										</div>
-										<div class="col-xl-3 col-lg-6">
-											<address class="info-grid">
-												<div class="info-content">
-												    <h5 class="title_infos"> <span class="mdi mdi-ship-wheel"></span> Shipping info</h5> 
-													 <ul>
-														<li>Name: <span> Home</span></li>
-														<li>Address: <span>Josephin Villa,
-															81 Fulton Park, Brazil/Pedro Leopoldo</span> </li>
-														<li>Phone: <span>(012) 345-678-9012</span></li>
-													 </ul>
-												</div>
-											</address>
-										</div>
-										<div class="col-xl-3 col-lg-6">
-											<address class="info-grid">
-												<div class="info-content">
-												    <h5 class="title_infos"> <span class="mdi mdi-cart"></span> Order info</h5> 
-													 <ul>
-														<li>Vendor: <span>Style echo</span></li>
-														<li>Address: <span>Maroon tower, 81 Fulton Park</span> </li>
-														<li>Phone: <span>(012) 345-678-9012</span></li>
-													 </ul>
-													 <a href="#!">View profile</a>
-												</div>
-											</address>
-										</div>
-										<div class="col-xl-3 col-lg-6">
-											<address class="info-grid">
-												<div class="info-content">
-												    <h5 class="title_infos"> <span class="mdi mdi-card-bulleted"></span>Payment info</h5> 
-													 <ul>
-														<li>Payment method: <span>Credit card</span></li>
-														<li>Master: <span>card: **** **** **** 5794</span> </li>
-														<li>Business name:<span>Grand Market LLC</span> </li>
-														<li>Phone: <span>(012) 345-678-9012</span></li>
-													 </ul>
-												</div>
-											</address>
-										</div>
-									
-									</div>
 								</div>
 							</div>
-
 							<div class="ec-odr-dtl card card-default mt-5">
 								<div class="card-header card-header-border-bottom d-flex justify-content-between">
 									<h2 class="ec-odr">Product summary</h2>
@@ -153,7 +96,7 @@
 												<table class="table table-striped o-tbl">
 													<thead>
 														<tr class="line">
-															<td><strong>Order ID</strong></td>
+															<td><strong>#</strong></td>
 															<td><strong>Photo</strong></td>
 															<td><strong>Product name</strong></td>
 															<td><strong>Unit</strong></td>
@@ -162,66 +105,20 @@
 														</tr>
 													</thead>
 													<tbody>
-														<tr>
-															<td>#JK5876GH</td>
+														<tr th:each="invoiceDetail,item:${invoiceDetails}">
+															<td th:text="${item.index}"></td>
 															<td><img class="product-img"
-																	src="/admin/img/products/pro-1.png" alt="" /></td>
-															<td>Corporate office chair</td>
-															<td>10 Units</td>
-															<td>$1,000</td>
-															<td>$10,000</td>
-														</tr>
-														<tr>
-															<td>#JK5876GH</td>
-															<td><img class="product-img"
-																	src="/admin/img/products/pro-2.png" alt="" /></td>
-															<td>Corporate office chair</td>
-															<td>10 Units</td>
-															<td>$1,000</td>
-															<td>$10,000</td>
-														</tr>
-														<tr>
-															<td>#JK5876GH</td>
-															<td><img class="product-img"
-																	src="/admin/img/products/pro-3.png" alt="" /></td>
-															<td>Corporate office chair</td>
-															<td>10 Units</td>
-															<td>$1,000</td>
-															<td>$10,000</td>
-														</tr>
-														<tr>
-															<td>#JK5876GH</td>
-															<td><img class="product-img"
-																	src="/admin/img/products/pro-4.png" alt="" /></td>
-															<td>Corporate office chair</td>
-															<td>10 Units</td>
-															<td>$1,000</td>
-															<td>$10,000</td>
-														</tr>
-														<tr>
-															<td colspan="4">
-															</td>
-															<td class="text-right"><strong>Total:</strong></td>
-															<td class="text-right"><strong>$42,000</strong></td>
-														</tr>
-
-														<tr>
-															<td colspan="4">
-															</td>
-															<td class="text-right"><strong>Vat (15%):</strong></td>
-															<td class="text-right"><strong>$6,200</strong></td>
-														</tr>
-														<tr>
-															<td colspan="4">
-															</td>
-															<td class="text-right"><strong>Discount:</strong></td>
-															<td class="text-right"><strong>$10,200</strong></td>
+																	 th:src="@{|/uploads/${invoiceDetail.product.image}|}" alt="img" /></td>
+															<td th:text="${invoiceDetail.name}"></td>
+															<td th:text="${invoiceDetail.invoiceQuantity}"></td>
+															<td th:text="'$'+${invoiceDetail.unitPrice}"></td>
+															<td th:text="'$'+${invoiceDetail.invoiceQuantity}*${invoiceDetail.unitPrice}"></td>
 														</tr>
 														<tr>
 															<td colspan="4">
 															</td>
 															<td class="text-right"><strong>Grand total:</strong></td>
-															<td class="text-right"><strong>$38,000</strong></td>
+															<td class="text-right"><strong th:text="${totalPrice}"></strong></td>
 														</tr>
 													</tbody>
 												</table>
@@ -243,11 +140,6 @@
 												<img src="/admin/img/sign.png" alt="">
 												<h5>Paul wilington</h5>
 												<p>Chief accoutant</p>
-
-												<div class="invoice_details_button">
-													<button type="button" class="btn btn-primary"> Send
-													</button>
-												</div>
 											</div>
 
 										</div>

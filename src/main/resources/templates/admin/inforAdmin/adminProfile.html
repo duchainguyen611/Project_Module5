@@ -163,7 +163,7 @@
                                                         <div class="form-group">
                                                             <label>Full name</label>
                                                             <input type="text" class="form-control"
-                                                                   th:field="*{fullName}">
+                                                                   th:field="*{fullName}" th:errorclass="is-invalid">
                                                         </div>
                                                     </div>
 
@@ -171,17 +171,17 @@
                                                         <div class="form-group">
                                                             <label>Address </label>
                                                             <input type="text" class="form-control"
-                                                                   th:field="*{address}">
+                                                                   th:field="*{address}" th:errorclass="is-invalid">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="form-group mb-4">
                                                             <label>Sex</label> <br>
                                                             <input type="radio" name="sex" th:field="*{sex}"
-                                                                   value="true">
+                                                                   value="true" th:errorclass="is-invalid">
                                                             Male<br>
                                                             <input type="radio" name="sex" th:field="*{sex}"
-                                                                   value="false">
+                                                                   value="false" th:errorclass="is-invalid">
                                                             Female<br>
                                                         </div>
                                                     </div>
@@ -189,14 +189,14 @@
                                                         <div class="form-group mb-4">
                                                             <label>Email</label>
                                                             <input type="email" class="form-control"
-                                                                   th:field="*{email}">
+                                                                   th:field="*{email}" th:errorclass="is-invalid">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="form-group mb-4">
                                                             <label>Phone number</label>
                                                             <input type="number" class="form-control"
-                                                                   th:field="*{phone}">
+                                                                   th:field="*{phone}" th:errorclass="is-invalid">
                                                         </div>
                                                     </div>
                                                     <div class="ec-vendor-img-upload">

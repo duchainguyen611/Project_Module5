@@ -2,6 +2,8 @@ package com.ra.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,9 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+    @NotBlank(message = "Enter Category Name")
     private String categoryName;
+    @NotBlank(message = "Enter Description")
     private String description;
     private Boolean status;
 

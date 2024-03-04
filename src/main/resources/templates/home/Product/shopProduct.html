@@ -637,6 +637,23 @@
         radio.setAttribute('checked', 'checked');
     }
 </script>
+<script>
+    function addItemToCart() {
+        // Gửi yêu cầu Ajax khi sản phẩm được thêm vào giỏ hàng
+        $.ajax({
+            url: 'url_may_chu_them_san_pham', // Đường dẫn đến máy chủ hoặc API
+            method: 'POST', // Hoặc 'GET' tùy thuộc vào cài đặt máy chủ
+            data: { productId: 'id_san_pham' }, // Dữ liệu cần gửi lên máy chủ (id sản phẩm, số lượng, vv.)
+            success: function(response) {
+                // Cập nhật số lượng trên biểu tượng giỏ hàng dựa trên kết quả trả về từ máy chủ
+                $('#cart-count').text(response.cartCount);
+            },
+            error: function(error) {
+                console.error('Lỗi khi thêm vào giỏ hàng: ', error);
+            }
+        });
+    }
+</script>
 </body>
 
 
