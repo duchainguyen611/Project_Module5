@@ -97,8 +97,8 @@ public class ShoppingCartServiceImp implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCart findByIdAndUser(Long id, User user) {
-        return shoppingCartRepository.findByIdAndUser(id,user);
+    public ShoppingCart findByProductAndUser(Product product, User user) {
+        return shoppingCartRepository.findByProductAndUser(product,user);
     }
 
 

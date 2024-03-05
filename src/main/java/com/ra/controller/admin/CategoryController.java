@@ -21,14 +21,6 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    private static final Logger log = LoggerFactory.getLogger(CategoryController.class);
-
-    @InitBinder
-    public void initBinder(WebDataBinder dataBinder){
-        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
-        dataBinder.registerCustomEditor(String.class,stringTrimmerEditor);
-    }
-
     @GetMapping("/category")
     public String index(Model model) {
         List<Category> categories = categoryService.getAll();
@@ -44,11 +36,7 @@ public class CategoryController {
     }
 
     @PostMapping("/insertCategory")
-    public String save(@ModelAttribute("category") @Valid Category category, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()){
-            return "redirect:/admin/addCategory";
-        }
-        log.info(category.toString());
+    public String save(@ModelAttribute("category") Category category) {
         categoryService.save(category);
         return "redirect:/admin/category";
     }

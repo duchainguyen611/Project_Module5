@@ -12,6 +12,12 @@ import java.util.List;
 public class CategoryServiceImp implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Override
+    public List<Category> findAllByStatus(Boolean status) {
+        return categoryRepository.findAllByStatus(status);
+    }
+
     @Override
     public List<Category> getAll() {
         return categoryRepository.findAll();

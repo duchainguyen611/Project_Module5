@@ -22,22 +22,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    @NotBlank(message = "Enter User Name")
-    @Pattern(regexp = "^[a-zA-Z0-9_]+",message = "No character special")
+
     private String username;
-    @NotBlank(message = "Enter Email")
-    @Email(message = "Enter a valid email Address")
+
     private String email;
     private String image;
-    @NotBlank(message = "Enter Full Name")
     private String fullName;
     private Boolean status;
-    @Length(min = 6,message = "Passwords must be at least 6 characters")
     private String password;
     private Boolean sex;
-    @Pattern(regexp = "(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\\b",message = "Enter a valid Vietnamese phone number")
     private String phone;
-    @NotBlank(message = "Enter Address")
     private String address;
     private Date createdAt;
     private Date updateAt;

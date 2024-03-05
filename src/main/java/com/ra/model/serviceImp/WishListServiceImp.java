@@ -1,5 +1,6 @@
 package com.ra.model.serviceImp;
 
+import com.ra.model.entity.Product;
 import com.ra.model.entity.User;
 import com.ra.model.entity.WishList;
 import com.ra.model.repository.WishListRepository;
@@ -29,7 +30,9 @@ public class WishListServiceImp implements WishListService {
     }
 
     @Override
-    public WishList findByIdAndUser(Long id, User user) {
-        return wishListRepository.findByIdAndUser(id,user);
+    public WishList findByProductAndUser(Product product, User user) {
+        return wishListRepository.findByProductAndUser(product,user);
     }
+
+
 }

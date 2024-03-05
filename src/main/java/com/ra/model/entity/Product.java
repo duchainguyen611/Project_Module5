@@ -21,13 +21,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String sku;
-    @NotBlank(message = "Enter Product Name")
     private String productName;
-    @NotBlank(message = "Enter Description")
     private String description;
-    @NotBlank(message = "Enter Unit Price")
     private Double unitPrice;
-    @NotBlank(message = "Enter Stock Quantity")
     private Integer stockQuantity;
     private String image;
     private Date createdAt;

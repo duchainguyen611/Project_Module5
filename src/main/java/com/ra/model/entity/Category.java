@@ -20,9 +20,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    @NotBlank(message = "Enter Category Name")
     private String categoryName;
-    @NotBlank(message = "Enter Description")
     private String description;
     private Boolean status;
 

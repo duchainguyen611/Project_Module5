@@ -1,5 +1,6 @@
 package com.ra.model.service;
 
+import com.ra.model.entity.Product;
 import com.ra.model.entity.ShoppingCart;
 import com.ra.model.entity.User;
 import com.ra.model.entity.dto.CheckOutInfor;
@@ -14,5 +15,5 @@ public interface ShoppingCartService {
     void updateOrderQuantity(Long id,Integer quantity);
     void deleteByUser(User user);
     void checkOut(CheckOutInfor checkOutInfor);
-    ShoppingCart findByIdAndUser(Long id, User user);
+    ShoppingCart findByProductAndUser(Product product, User user);
 }

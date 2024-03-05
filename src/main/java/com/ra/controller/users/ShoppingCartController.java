@@ -9,6 +9,7 @@ import com.ra.model.service.ShoppingCartService;
 import com.ra.model.service.UserService;
 import com.ra.security.UserDetail.UserLogin;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,14 +18,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/user")
 public class ShoppingCartController {
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private ShoppingCartService shoppingCartService;
-    @Autowired
-    private UserLogin userLogin;
+
+    private final ProductService productService;
+    private final ShoppingCartService shoppingCartService;
+    private final UserLogin userLogin;
+
+
     @GetMapping("/cart")
     public String shoppingCart(Model model) {
         User user = userLogin.userLogin();
@@ -41,11 +43,18 @@ public class ShoppingCartController {
     @PostMapping("/addProductToShoppingCart/{productId}")
     public String addProductToShoppingCart(@PathVariable Long productId) {
         User user = userLogin.userLogin();
-        ShoppingCart cart = new ShoppingCart();
-        cart.setProduct(productService.findById(productId));
-        cart.setOrderQuantity(1);
-        cart.setUser(user);
-        shoppingCartService.save(cart);
+        Product product = productService.findById(productId);
+        ShoppingCart oldCart = shoppingCartService.findByProductAndUser(product, user);
+        if (oldCart != null) {
+            oldCart.setOrderQuantity(1 + oldCart.getOrderQuantity());
+            shoppingCartService.save(oldCart);
+        }else {
+            ShoppingCart cart = new ShoppingCart();
+            cart.setProduct(productService.findById(productId));
+            cart.setOrderQuantity(1);
+            cart.setUser(user);
+            shoppingCartService.save(cart);
+        }
         return "redirect:/shop";
     }
 

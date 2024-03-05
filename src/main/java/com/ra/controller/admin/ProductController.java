@@ -44,7 +44,7 @@ public class ProductController {
     public String add(Model model) {
         List<Vendor> vendors = vendorService.getAll();
         model.addAttribute("vendors", vendors);
-        List<Category> categories = categoryService.getAll();
+        List<Category> categories = categoryService.findAllByStatus(true);
         model.addAttribute("categories", categories);
         Product product = new Product();
         model.addAttribute("product", product);
@@ -71,7 +71,7 @@ public class ProductController {
     public String update(Model model, @PathVariable Long id) {
         List<Vendor> vendors = vendorService.getAll();
         model.addAttribute("vendors", vendors);
-        List<Category> categories = categoryService.getAll();
+        List<Category> categories = categoryService.findAllByStatus(true);
         model.addAttribute("categories", categories);
         Product product = productService.findById(id);
         model.addAttribute("product", product);

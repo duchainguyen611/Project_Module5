@@ -1,5 +1,6 @@
 package com.ra.model.service;
 
+import com.ra.model.entity.Product;
 import com.ra.model.entity.ShoppingCart;
 import com.ra.model.entity.User;
 import com.ra.model.entity.WishList;
@@ -10,5 +11,5 @@ public interface WishListService {
     List<WishList> getAllByUser(User user);
     void deleteByUserAndId(User user, Long id);
     WishList save(WishList wishList);
-    WishList findByIdAndUser(Long id, User user);
+    WishList findByProductAndUser(Product product, User user);
 }

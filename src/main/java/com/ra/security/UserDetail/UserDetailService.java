@@ -23,14 +23,18 @@ public class UserDetailService implements UserDetailsService {
         Optional<User> optionalUsers = userRepository.findByUsername(username);
         if(optionalUsers.isPresent()) {
             User user = optionalUsers.get();
-            return UserPrincipal.builder()
-                    .user(user)
-                    .authorities(user.getRoles()
-                            .stream()
-                            .map(item -> new SimpleGrantedAuthority(item.getRoleName().name()))
-                            .collect(Collectors.toSet()))
-                    .build();
+            if (user.getStatus()){
+                return UserPrincipal.builder()
+                        .user(user)
+                        .authorities(user.getRoles()
+                                .stream()
+                                .map(item -> new SimpleGrantedAuthority(item.getRoleName().name()))
+                                .collect(Collectors.toSet()))
+                        .build();
+            }
         }
         throw new RuntimeException("role not found");
     }
+
+
 }

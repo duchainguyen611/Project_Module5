@@ -63,15 +63,12 @@ public class InforAdminController {
             , @RequestParam("oldPassword") String oldPassword
             , @RequestParam("newPassword") String newPassword
             , @RequestParam("conPassword") String conPassword) {
-        User userCheck = userService.findById(1L);
+        User userCheck = userLogin.userLogin();
         if (!passwordEncoder.matches(oldPassword, userCheck.getPassword())) {
-            model.addAttribute("errorStyle1", "display:block;color:red;");
             throw new RuntimeException();
         } else if (newPassword.equals(oldPassword)) {
-            model.addAttribute("errorStyle2", "display:block;color:red;");
             throw new RuntimeException();
         } else if (!newPassword.equals(conPassword)) {
-            model.addAttribute("errorStyle3", "display:block;color:red;");
             throw new RuntimeException();
         } else {
             userCheck.setUpdateAt(new Date(new java.util.Date().getTime()));

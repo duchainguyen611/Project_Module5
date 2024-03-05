@@ -2,9 +2,11 @@ package com.ra.controller.users;
 
 import com.ra.model.entity.Invoice;
 import com.ra.model.entity.InvoiceDetail;
+import com.ra.model.entity.ShoppingCart;
 import com.ra.model.entity.User;
 import com.ra.model.service.InvoiceDetailService;
 import com.ra.model.service.InvoiceService;
+import com.ra.model.service.ShoppingCartService;
 import com.ra.model.service.UserService;
 import com.ra.security.UserDetail.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,39 +38,41 @@ public class UserPersonalController {
     private String pathUpload;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ShoppingCartService shoppingCartService;
 
     @GetMapping("/profile")
-    public String profileUser(Model model){
+    public String profileUser(Model model) {
         User user = userLogin.userLogin();
-        if (user.getFullName()==null){
+        if (user.getFullName() == null) {
             return "redirect:/user/updateProfile";
         }
         List<Invoice> invoiceList = invoiceService.findAllByUser(user);
-        model.addAttribute("invoiceList",invoiceList);
-        model.addAttribute("user",user);
+        model.addAttribute("invoiceList", invoiceList);
+        model.addAttribute("user", user);
         return "home/profile/my-account";
     }
 
     @GetMapping("/invoiceDetail/{id}")
-    public String invoiceDetail(Model model, @PathVariable Long id){
+    public String invoiceDetail(Model model, @PathVariable Long id) {
         User user = userLogin.userLogin();
         Invoice invoice = invoiceService.findById(id);
         List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice(invoice);
-        model.addAttribute("user",user);
-        model.addAttribute("invoice",invoice);
-        model.addAttribute("invoiceDetails",invoiceDetails);
+        model.addAttribute("user", user);
+        model.addAttribute("invoice", invoice);
+        model.addAttribute("invoiceDetails", invoiceDetails);
         return "home/invoice/invoice";
     }
 
     @GetMapping("/updateProfile")
-    public String updateProfile(Model model){
+    public String updateProfile(Model model) {
         User user = userLogin.userLogin();
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "home/profile/account-info-edit";
     }
 
     @PostMapping("/editInformationProfile")
-    public String editInformationProfile(@ModelAttribute("user")User user, @RequestParam("imageUser") MultipartFile file){
+    public String editInformationProfile(@ModelAttribute("user") User user, @RequestParam("imageUser") MultipartFile file) {
         String fileName = file.getOriginalFilename();
         try {
             FileCopyUtils.copy(file.getBytes(), new File(pathUpload + fileName));
@@ -95,13 +99,10 @@ public class UserPersonalController {
             , @RequestParam("conPassword") String conPassword) {
         User userCheck = userLogin.userLogin();
         if (!passwordEncoder.matches(oldPassword, userCheck.getPassword())) {
-            model.addAttribute("errorStyle1", "display:block;color:red;");
             throw new RuntimeException();
         } else if (newPassword.equals(oldPassword)) {
-            model.addAttribute("errorStyle2", "display:block;color:red;");
             throw new RuntimeException();
         } else if (!newPassword.equals(conPassword)) {
-            model.addAttribute("errorStyle3", "display:block;color:red;");
             throw new RuntimeException();
         } else {
             userCheck.setUpdateAt(new Date(new java.util.Date().getTime()));

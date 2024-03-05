@@ -47,22 +47,32 @@ public class WishListController {
     @PostMapping("/addProductToWishList/{productId}")
     public String addProductToWishList(@PathVariable Long productId){
         User user = userLogin.userLogin();
-        WishList wishList = new WishList();
         Product product = productService.findById(productId);
-        wishList.setProduct(product);
-        wishList.setUser(user);
-        wishListService.save(wishList);
+        WishList wishListOld = wishListService.findByProductAndUser(product, user);
+        if (wishListOld == null) {
+            WishList wishList = new WishList();
+            wishList.setProduct(product);
+            wishList.setUser(user);
+            wishListService.save(wishList);
+        }
         return "redirect:/shop";
     }
 
     @PostMapping("/addProductFromWishListToShoppingCart/{productId}")
     public String addProductToShoppingCart(@PathVariable Long productId) {
         User user = userLogin.userLogin();
-        ShoppingCart cart = new ShoppingCart();
-        cart.setProduct(productService.findById(productId));
-        cart.setOrderQuantity(1);
-        cart.setUser(user);
-        shoppingCartService.save(cart);
+        Product product = productService.findById(productId);
+        ShoppingCart oldCart = shoppingCartService.findByProductAndUser(product, user);
+        if (oldCart != null) {
+            oldCart.setOrderQuantity(1 + oldCart.getOrderQuantity());
+            shoppingCartService.save(oldCart);
+        }else {
+            ShoppingCart cart = new ShoppingCart();
+            cart.setProduct(productService.findById(productId));
+            cart.setOrderQuantity(1);
+            cart.setUser(user);
+            shoppingCartService.save(cart);
+        }
         return "redirect:/user/wishList";
     }
 }

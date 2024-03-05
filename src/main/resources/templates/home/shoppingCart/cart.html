@@ -99,7 +99,7 @@
                                     <div class="plus-minus-input">
                                         <div class="input-group-button">
                                             <button type="button" class="button minusButton" data-quantity="minus"
-                                                    th:data-field="${cart.id}" >
+                                                    th:data-field="${cart.id}">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </button>
                                         </div>
@@ -110,7 +110,7 @@
                                                onchange="updateCartItemQuantity(this.getAttribute('name'), this.value)"/>
                                         <div class="input-group-button">
                                             <button type="button" class="button plusButton" data-quantity="plus"
-                                                    th:data-field="${cart.id}" >
+                                                    th:data-field="${cart.id}">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                             </button>
                                         </div>
@@ -424,12 +424,13 @@
             var quantityInput = row.querySelector('.quantity-input');
             var quantity = parseFloat(quantityInput.value);
             // console.log("old quantity:"+quantity);
-            quantity +=1;
+            quantity += 1;
             var totalPrice = unitPrice * quantity;
             // console.log("plus => "+quantity);
             // console.log(totalPrice);
             row.querySelector('.product_total').textContent = totalPrice.toFixed(2);
         }
+
         function updateTotalPriceButtonMinus(button) {
             var row = button.closest('tr');
             var unitPrice = parseFloat(row.querySelector('.product-price').textContent);
@@ -437,11 +438,11 @@
             var quantity = parseFloat(quantityInput.value);
             // console.log("old quantity:"+quantity);
 
-                quantity -=1;
-                var totalPrice = unitPrice * quantity;
-                // console.log("minus => "+quantity);
-                // console.log(totalPrice);
-                row.querySelector('.product_total').textContent = totalPrice.toFixed(2);
+            quantity -= 1;
+            var totalPrice = unitPrice * quantity;
+            // console.log("minus => "+quantity);
+            // console.log(totalPrice);
+            row.querySelector('.product_total').textContent = totalPrice.toFixed(2);
 
         }
 

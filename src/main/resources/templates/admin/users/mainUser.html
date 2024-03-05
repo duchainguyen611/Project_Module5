@@ -80,11 +80,11 @@
 											<tbody>
 												<tr th:each="user:${users}">
 													<td th:text="${user.id}"> </td>
-													<td th:text="${user.image}"></td>
+													<td ><img class="cat-thumb" th:src="@{|/uploads/${user.image}|}" alt="img"></td>
 													<td th:text="${user.fullName}"></td>
 													<td th:text="${user.email}"></td>
 													<td th:text="${user.phone}"></td>
-													<td th:text="${user.sex}"></td>
+													<td th:text="${user.sex}?'Male':'Female'"></td>
 													<td th:text="${user.address}"></td>
 													<td th:text="${user.username}"></td>
 													<td><span class="badge badge-success" th:text="${user.status?'Active':'Inactive'}"></span></td>

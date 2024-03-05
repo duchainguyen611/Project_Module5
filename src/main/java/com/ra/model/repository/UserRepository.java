@@ -14,4 +14,5 @@ public interface UserRepository extends JpaRepository<User,Long> {
     boolean existsByUsername(String userName);
     @Query(value = "select u.* from user u join user_role ur on u.id=ur.user_id where role_id=2",nativeQuery = true)
     List<User> getAllUser();
+
 }

@@ -22,13 +22,12 @@ public class Vendor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String image;
-    @NotBlank(message = "Enter Vendor Name")
+
     private String vendorName;
-    @NotBlank(message = "Enter Address")
+
     private String address;
-    @Email(message = "Enter a valid email Address")
+
     private String email;
-    @Pattern(regexp = "(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\\b",message = "Enter a valid Vietnamese phone number")
     private String phone;
 
     @OneToMany(mappedBy = "vendor")
